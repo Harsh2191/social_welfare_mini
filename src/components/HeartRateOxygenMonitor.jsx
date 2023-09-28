@@ -21,8 +21,8 @@ const HeartRateOxygenMonitor = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newHeartRate = Math.floor(Math.random() * (150 - 60 + 1)) + 60;
-      const newOxygenLevel = Math.floor(Math.random() * (100 - 90 + 1)) + 90;
+      const newHeartRate = Math.floor(Math.random() * 25) + 90;
+      const newOxygenLevel = Math.floor(Math.random() * 6) + 95;
 
       setHeartRate(newHeartRate);
       setOxygenLevel(newOxygenLevel);

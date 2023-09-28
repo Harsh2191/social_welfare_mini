@@ -1,4 +1,6 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
 import { tokens } from "../../theme";
 import GaugeChart from "react-gauge-chart";
 import toast, { Toaster } from "react-hot-toast";
@@ -43,12 +45,42 @@ const Dashboard = () => {
     toast.error("HIGH RISK!!", { duration: 2500 });
   }
 
+  const useStyles = makeStyles((theme) => ({
+    hiddenBox: {
+      display: "none", // Hide the box by default
+      [theme.breakpoints.up("md")]: {
+        display: "block", // Show the box on 'md' and larger screens
+      },
+    },
+    flexBox: {
+      display: "flex",
+      flexDirection: "column",
+      [theme.breakpoints.up("md")]: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
+    },
+    lineHeight: {
+      height: "350px",
+      [theme.breakpoints.up("md")]: {
+        height: "310px",
+      },
+    },
+    gauge: {
+      [theme.breakpoints.down("sm")]: {
+        marginTop: "30px",
+      },
+    },
+  }));
+  const classes = useStyles();
   return (
     <Box m="10px 20px 10px 20px">
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
-        <Box>
+        <Box className={classes.hiddenBox}>
           <Button
             sx={{
               backgroundColor: colors.blueAccent[700],
@@ -65,153 +97,139 @@ const Dashboard = () => {
       </Box>
 
       {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Tank Status
-          </Typography>
+      <Grid container spacing={2}>
+        <Grid item sm={12} md={4}>
           <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
+            backgroundColor={colors.primary[400]}
+            p={3}
+            style={{ height: "300px" }}
+            className={classes.hiddenBox}
           >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              70 % of tank filled
+            <Typography variant="h5" fontWeight="600">
+              Tank Status
             </Typography>
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box display="flex" justifyContent="space-between">
-            <Typography
-              variant="h5"
-              fontWeight="600"
-              sx={{ padding: "30px 30px 0 30px" }}
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              mt="25px"
             >
-              Risk Meter
-            </Typography>
-            <Typography
-              variant="h4"
-              fontWeight="600"
-              sx={{ padding: "30px 30px 0 30px", color: rColor }}
-              className={rColor === "red" ? "blinking-text" : "none"}
-            >
-              {rText}
-            </Typography>
-          </Box>
-          <Box height="250px" mt="20px">
-            {/* <BarChart isDashboard={true} /> */}
-            <GaugeChart
-              id="gauge-chart2"
-              nrOfLevels={3}
-              hideText={true}
-              percent={risk}
-              animate={false}
-            />
-          </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Worker Health Status
-          </Typography>
-          <Box>
-            <HeartRateOxygenMonitor />
-          </Box>
-        </Box>
-
-        <Box
-          gridColumn="span 8"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Box
-            mt="25px"
-            p="0 30px"
-            display="flex "
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Box>
+              <ProgressCircle size="125" />
               <Typography
                 variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
+                color={colors.greenAccent[500]}
+                sx={{ mt: "20px" }}
               >
-                Gas Concentration
+                70 % of tank filled
               </Typography>
             </Box>
-            <Box>
-              <Typography variant="h4" fontWeight="600" color="#F47560">
-                Ammonia:
-                {gasData[gasData.length - 1].Ammonia}ppm
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Box
+            p={3}
+            backgroundColor={colors.primary[400]}
+            style={{ height: "300px" }}
+          >
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h5" fontWeight="600">
+                Risk Meter
+              </Typography>
+              <Typography
+                variant="h4"
+                fontWeight="600"
+                sx={{ color: rColor }}
+                className={rColor === "red" ? "blinking-text" : "none"}
+              >
+                {rText}
               </Typography>
             </Box>
-            <Box>
-              <Typography variant="h4" fontWeight="600" color="#E8C1A0">
-                Methane:
-                {gasData[gasData.length - 1].Methane}ppm
-              </Typography>
+            <Box className={classes.gauge}>
+              {/* <BarChart isDashboard={true} /> */}
+              <GaugeChart
+                id="gauge-chart2"
+                nrOfLevels={3}
+                hideText={true}
+                percent={risk}
+                animate={false}
+              />
             </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Box
+            backgroundColor={colors.primary[400]}
+            p={3}
+            style={{ height: "300px" }}
+          >
+            <Typography variant="h5" fontWeight="600">
+              Worker Health Status
+            </Typography>
             <Box>
-              <a href="/line" style={{ textDecoration: "none" }}>
+              <HeartRateOxygenMonitor />
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={12} md={8}>
+          <Box
+            p={3}
+            backgroundColor={colors.primary[400]}
+            className={classes.lineHeight}
+          >
+            <Box className={classes.flexBox}>
+              <Box>
                 <Typography
-                  variant="h4"
+                  variant="h5"
                   fontWeight="600"
                   color={colors.grey[100]}
                 >
-                  View more
+                  Gas Concentration
                 </Typography>
-              </a>
+              </Box>
+              <Box>
+                <Typography variant="h4" fontWeight="600" color="#F47560">
+                  Ammonia:
+                  {gasData[gasData.length - 1].Ammonia}ppm
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="h4" fontWeight="600" color="#E8C1A0">
+                  Methane:
+                  {gasData[gasData.length - 1].Methane}ppm
+                </Typography>
+              </Box>
+              <Box className={classes.hiddenBox}>
+                <a href="/line" style={{ textDecoration: "none" }}>
+                  <Typography
+                    variant="h4"
+                    fontWeight="600"
+                    color={colors.grey[100]}
+                  >
+                    View more
+                  </Typography>
+                </a>
+              </Box>
+            </Box>
+            <Box m="10px 0 0 0" display="flex" justifyContent="center">
+              <Line_Chart />
             </Box>
           </Box>
-          <Box height="300px" m="5px 0 0 0">
-            <Line_Chart
-              width={500}
-              height={250}
-              maxWidth="sm"
-              isDashboard={true}
-            />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <Box
+            backgroundColor={colors.primary[400]}
+            padding={3}
+            style={{ height: "310px" }}
+          >
+            <Typography variant="h5" fontWeight="600">
+              Current Gas status
+            </Typography>
+            <Box display="flex" justifyContent="center">
+              <Pie_Chart />
+            </Box>
           </Box>
-        </Box>
-        <Box
-          gridColumn="span 4"
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Current Gas status
-          </Typography>
-          <Box marginLeft="100px">
-            <Pie_Chart />
-          </Box>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
       <Toaster />
     </Box>
   );

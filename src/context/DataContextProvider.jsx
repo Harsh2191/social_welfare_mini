@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import originalData from "../data/realData";
-import { ref, getDatabase, onValue, get } from "firebase/database";
+import { ref, getDatabase, get } from "firebase/database";
 import { app } from "../firebase";
 import DataContext from "./DataContext";
 

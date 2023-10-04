@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Line_Chart = () => {
-  const gasData = useContext(DataContext);
+  const { gasData } = useContext(DataContext);
   let LineData = gasData.slice(-Math.min(5, gasData.length));
   const classes = useStyles();
 

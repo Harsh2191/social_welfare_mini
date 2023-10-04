@@ -1,47 +1,19 @@
 import { useState, useEffect } from "react";
 import { ref, getDatabase, get } from "firebase/database";
-import { app } from "../firebase";
+import { app, auth } from "../firebase";
 import DataContext from "./DataContext";
-
-// const db = getDatabase(app);
+import toast, { Toaster } from "react-hot-toast";
+import { duration } from "@mui/material";
 
 const DataContextProvider = ({ children }) => {
-  // const formattedData = originalData.map((item) => ({
-  //   Ammonia: item[0],
-  //   Methane: item[1],
-  // }));
-  // const [gasData, setGasData] = useState([
-  //   {
-  //     Ammonia: 0,
-  //     Methane: 0,
-  //     name: new Date().toLocaleTimeString("en-IN", {
-  //       timeZone: "Asia/Kolkata",
-  //     }),
-  //   },
-  // ]);
-  // const [ind, setInd] = useState(0);
-  // console.log(gasData);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const newGas = formattedData[ind];
-  //     newGas.name = new Date().toLocaleTimeString("en-IN", {
-  //       timeZone: "Asia/Kolkata",
-  //     });
-  //     setGasData([...gasData, newGas]);
-  //     setInd(ind + 1);
-  //   }, 1500);
-
-  //   return () => clearInterval(interval);
-  // }, [ind]);
-
   const [gasData, setGasData] = useState([
     { Methane: 0, Ammonia: 0, name: "0" },
   ]);
-  // let gasData = [{ Methane: 0, Ammonia: 0, name: "0" }];
   const gasRef = ref(getDatabase(app));
-  useEffect(() => {
-    // Clean up the listener when the component unmounts
+  const [user, setUser] = useState(null);
+  const [shouldStart, setShouldStart] = useState(true);
+  // console.log(user);
+  const start = () => {
     const interval = setInterval(() => {
       get(gasRef, "test")
         .then((snapshot) => {
@@ -52,10 +24,12 @@ const DataContextProvider = ({ children }) => {
               Ammonia: value.b,
               name: value.Time,
             };
-            console.log(gas);
-            // if (gas.name !== gasData[gasData.length - 1].name) {
-            setGasData((gasData) => [...gasData, gas]);
-            // }
+            console.log(gasData);
+            if (gas.name !== gasData[gasData.length - 1].name) {
+              // console.log(gas.name, gasData[gasData.length - 1].name);
+              console.log(gasData);
+              setGasData((gasData) => [...gasData, gas]);
+            }
           } else {
             console.log("No data available");
           }
@@ -65,9 +39,84 @@ const DataContextProvider = ({ children }) => {
         });
     }, 3000);
     return () => clearInterval(interval);
+  };
+  useEffect(() => {
+    // const curUser = auth.currentUser;
+    // if (curUser) {
+    //   if (curUser !== user) {
+    //     setUser(curUser.providerData);
+    //     console.log(user);
+    //   }
+    // }
+    // if (user !== null) {
+    // const interval = setInterval(() => {
+    //   get(gasRef, "test")
+    //     .then((snapshot) => {
+    //       if (snapshot.exists()) {
+    //         const value = snapshot.val().test;
+    //         const gas = {
+    //           Methane: value.a,
+    //           Ammonia: value.b,
+    //           name: value.Time,
+    //         };
+    //         console.log(gas);
+    //         if (gas !== gasData[gasData.length - 1]) {
+    //           setGasData((gasData) => [...gasData, gas]);
+    //         }
+    //       } else {
+    //         console.log("No data available");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //     });
+    // }, 3000);
+    // return () => clearInterval(interval);
+    // console.log("signedin", user);
+    // }
   });
+  var userData = {};
+  if (user) {
+    // console.log(user[0].providerId);
+    if (user[0].providerId == "password") {
+      const name = user[0].email.split("@")[0];
+      const img = null;
+      userData = { name, img };
+    } else {
+      const name = user[0].displayName;
+      const img = user[0].photoURL;
+      userData = { name, img };
+      // console.log(userData);
+    }
+    if (shouldStart) {
+      toast.success("Logged in successfully", { duration: 3000 });
+    }
+  }
+
+  if (
+    user &&
+    user[0].email === "sih.ps1368@gmail.com" &&
+    user[0].providerId === "google.com"
+  ) {
+    // console.log("starting");
+    if (shouldStart) {
+      start();
+      setShouldStart(false);
+    }
+  } else {
+    // console.log("not starting");
+    if (shouldStart) {
+      // toast.success("Logged in successfully", { duration: 3000 });
+    }
+  }
+  // console.log(userData);
+
+  const data = { gasData, setUser, userData };
   return (
-    <DataContext.Provider value={gasData}>{children}</DataContext.Provider>
+    <>
+      <Toaster />
+      <DataContext.Provider value={data}>{children}</DataContext.Provider>
+    </>
   );
 };
 

@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { useContext } from "react";
 const Line_big = () => {
-  const gasData = useContext(DataContext);
+  const { gasData } = useContext(DataContext);
   const LineData = gasData.slice(-Math.min(15, gasData.length));
   const risk =
     (gasData[gasData.length - 1].Ammonia / 800 +

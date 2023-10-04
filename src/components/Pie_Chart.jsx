@@ -5,7 +5,7 @@ import { useContext } from "react";
 import DataContext from "../context/DataContext";
 
 const Pie_Chart = () => {
-  const gasData = useContext(DataContext);
+  const { gasData } = useContext(DataContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const data = [

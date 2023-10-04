@@ -16,8 +16,9 @@ import Pie_Chart from "../../components/Pie_Chart";
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const gasData = useContext(DataContext);
+  const { gasData } = useContext(DataContext);
 
+  // toast.success("Logged In successfully", { duration: 3000 });
   const normalizedAmmonia = gasData[gasData.length - 1].Ammonia / 800;
   const normalizedMethane = gasData[gasData.length - 1].Methane / 800;
   let risk = 0;

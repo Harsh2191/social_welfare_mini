@@ -38,7 +38,7 @@ const DataContextProvider = ({ children }) => {
           console.error(error);
         });
     }, 3000);
-    return () => clearInterval(interval);
+    return interval;
   };
   useEffect(() => {
     // const curUser = auth.currentUser;
@@ -76,7 +76,7 @@ const DataContextProvider = ({ children }) => {
     // }
   });
   var userData = {};
-  if (user) {
+  if (user !== null) {
     // console.log(user[0].providerId);
     if (user[0].providerId == "password") {
       const name = user[0].email.split("@")[0];
@@ -92,7 +92,7 @@ const DataContextProvider = ({ children }) => {
       toast.success("Logged in successfully", { duration: 3000 });
     }
   }
-
+  let stop = "";
   if (
     user &&
     user[0].email === "sih.ps1368@gmail.com" &&
@@ -100,17 +100,18 @@ const DataContextProvider = ({ children }) => {
   ) {
     // console.log("starting");
     if (shouldStart) {
-      start();
+      stop = start();
       setShouldStart(false);
     }
   } else {
     // console.log("not starting");
-    if (shouldStart) {
-      // toast.success("Logged in successfully", { duration: 3000 });
-    }
   }
   // console.log(userData);
-
+  if (user === null || user[0].email !== "sih.ps1368@gmail.com") {
+    // console.log(user[0].email, "MEEEE!!!");
+    // const intervalId = start();
+    clearInterval(stop);
+  }
   const data = { gasData, setUser, userData };
   return (
     <>

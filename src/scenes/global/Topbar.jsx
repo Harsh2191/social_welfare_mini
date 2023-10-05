@@ -12,17 +12,31 @@ import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
+import DataContext from "../../context/DataContext";
 const Topbar = () => {
+  const { setUser } = useContext(DataContext);
   const navigate = useNavigate();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const reload = () => {
+    window.location.reload();
+  };
   const signout = async () => {
     try {
-      await signOut(auth);
-      toast.success("Logged-out");
+      const user = auth.currentUser;
+      await user.delete();
+      setUser(null);
+
+      // setTimeout(() => {
+      //   navigate("/");
+      // }, 2000);
       navigate("/");
+      reload();
+
+      // navigate("/");
+
+      // toast.success("Logged-out");
     } catch (err) {
       console.error(err);
     }

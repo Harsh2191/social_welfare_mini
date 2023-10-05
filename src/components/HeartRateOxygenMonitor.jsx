@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles"; // For Material-UI v5
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Heart from "../images/heart-attack.png";
 import Oxygen from "../images/o2.png";
+import DataContext from "../context/DataContext";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -18,18 +19,22 @@ const HeartRateOxygenMonitor = () => {
   const classes = useStyles();
   const [heartRate, setHeartRate] = useState(0);
   const [oxygenLevel, setOxygenLevel] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const { userData } = useContext(DataContext);
+  // useEffect(() => {
+  const interval = () => {
+    setInterval(() => {
       const newHeartRate = Math.floor(Math.random() * 25) + 90;
       const newOxygenLevel = Math.floor(Math.random() * 6) + 95;
 
       setHeartRate(newHeartRate);
       setOxygenLevel(newOxygenLevel);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
+    }, 3000);
+  };
+  if (userData.name === "sih1368") {
+    interval();
+  }
+  // return () => clearInterval(interval);
+  // }, []);
 
   return (
     <Paper className={classes.root}>

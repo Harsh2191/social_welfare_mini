@@ -6,7 +6,7 @@ import Pic4 from "../images/pic4.jpg";
 import Pic5 from "../images/pic5.jpg";
 const CarouselComponent = () => {
   return (
-    <Carousel className="mt-1">
+    <Carousel className="mt-5">
       <Carousel.Item style={{ textAlign: "center" }}>
         <img
           className=""

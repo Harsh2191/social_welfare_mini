@@ -1,7 +1,9 @@
 import CarouselComponent from "../../components/CarouselComponent";
 import { Modal, Button, Form } from "react-bootstrap";
+import Logo from "../../images/septic-tank.png";
 import { useState } from "react";
 import SignupLoginModal from "../../components/SignupLoginModal";
+import timeline from "../../images/timeline.png";
 const Home = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -17,13 +19,24 @@ const Home = () => {
     <>
       <SignupLoginModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
 
-      <header className="header">
-        <div className="title">SEPTIC SAVIOURS</div>
+      <header
+        className="header"
+        style={{ position: "fixed", zIndex: 1000, backgroundColor: "#113946" }}
+      >
+        <a href="/" style={{ textDecoration: "none" }}>
+          <div
+            className="title"
+            style={{ display: "flex", alignItems: "center", gap: "10px" }}
+          >
+            <img src={Logo} width={30} alt="" />
+            <div className="Name mt-1">SEPTIC SAVIOURS</div>
+          </div>
+        </a>
         <div className="header-links">
           <ul className="header-link-items">
             <li>
               <Button variant="secondary" onClick={openModal}>
-                Sign-up | Log-in
+                <div className="logg">Sign-up | Log-in</div>
               </Button>
             </li>
           </ul>
@@ -31,7 +44,15 @@ const Home = () => {
       </header>
       <CarouselComponent />
       <section id="AboutUs">
-        <h1>About</h1>
+        <h1
+          style={{
+            fontFamily: "Source Sans Pro",
+            fontWeight: "bold",
+            fontSize: "3.5em",
+          }}
+        >
+          About
+        </h1>
         <section className="sec">
           <div className="about">
             <div className="septic">
@@ -91,7 +112,7 @@ const Home = () => {
         <div className="circles one"></div>
       </div> */}
 
-      <section style={{ backgroundColor: "white" }}>
+      {/* <section style={{ backgroundColor: "white" }}>
         <h1
           id="works"
           style={{
@@ -141,7 +162,7 @@ const Home = () => {
             d="M0,192L48,186.7C96,181,192,171,288,176C384,181,480,203,576,213.3C672,224,768,224,864,208C960,192,1056,160,1152,154.7C1248,149,1344,171,1392,181.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>
-      </section>
+      </section> */}
       {/* <div id="dot">
         <div className="circles one"></div>
         <div className="circles two"></div>
@@ -151,6 +172,24 @@ const Home = () => {
         <div className="circles two"></div>
         <div className="circles one"></div>
       </div> */}
+      <section style={{ textAlign: "center" }}>
+        <h2
+          style={{
+            fontFamily: "Source Sans Pro",
+            fontWeight: "bold",
+            fontSize: "3.5em",
+            marginBottom: "7vw",
+          }}
+        >
+          How it works?
+        </h2>
+        <img
+          className="shadow-lg"
+          src={timeline}
+          style={{ maxWidth: "80%" }}
+          alt=""
+        />
+      </section>
 
       <section>
         <div id="benefit">

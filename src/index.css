@@ -327,6 +327,13 @@ hr {
   .septic ,.idea{
     width: 100%;
   }
+  .Name{
+    font-size: 20px;
+    padding-top: 3px;
+  }
+  .logg{
+    font-size: 12px;
+  }
 }
 
 .form-container {

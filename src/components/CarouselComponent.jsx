@@ -6,18 +6,38 @@ import Pic4 from "../images/pic4.jpg";
 import Pic5 from "../images/pic5.jpg";
 const CarouselComponent = () => {
   return (
-    <Carousel>
-      <Carousel.Item>
-        <img className="img-fluid" src={Pic1} alt="First slide" />
+    <Carousel className="mt-1">
+      <Carousel.Item style={{ textAlign: "center" }}>
+        <img
+          className=""
+          style={{ maxWidth: "75%" }}
+          src={Pic1}
+          alt="First slide"
+        />
       </Carousel.Item>
-      <Carousel.Item>
-        <img className="img-fluid" src={Pic3} alt="First slide" />
+      <Carousel.Item style={{ textAlign: "center" }}>
+        <img
+          className=""
+          style={{ maxWidth: "75%" }}
+          src={Pic3}
+          alt="First slide"
+        />
       </Carousel.Item>{" "}
-      <Carousel.Item>
-        <img className="img-fluid" src={Pic4} alt="First slide" />
+      <Carousel.Item style={{ textAlign: "center" }}>
+        <img
+          className=""
+          style={{ maxWidth: "75%" }}
+          src={Pic4}
+          alt="First slide"
+        />
       </Carousel.Item>{" "}
-      <Carousel.Item>
-        <img className="img-fluid" src={Pic5} alt="First slide" />
+      <Carousel.Item style={{ textAlign: "center" }}>
+        <img
+          className=""
+          style={{ maxWidth: "75%" }}
+          src={Pic5}
+          alt="First slide"
+        />
       </Carousel.Item>
     </Carousel>
   );

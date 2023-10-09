@@ -49,7 +49,7 @@ const SignupLoginModal = ({ modalIsOpen, closeModal }) => {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, value.email, value._idpassword);
+      await signInWithEmailAndPassword(auth, value.email, value.password);
       console.log(auth.currentUser.providerData);
       setUser(auth.currentUser.providerData);
       navigate("/dashboard");
@@ -73,31 +73,6 @@ const SignupLoginModal = ({ modalIsOpen, closeModal }) => {
 
   const renderForm = () => {
     switch (activeForm) {
-      case "signup":
-        return (
-          <form onSubmit={handleSignup}>
-            <input
-              type="email"
-              className="form-input"
-              name="email"
-              placeholder="Email"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              className="form-input"
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              minLength="6"
-              required
-            />
-            <button type="submit" className="form-submit">
-              Sign Up
-            </button>
-          </form>
-        );
       case "login":
         return (
           <form onSubmit={handleLogin}>
@@ -123,11 +98,36 @@ const SignupLoginModal = ({ modalIsOpen, closeModal }) => {
             </button>
           </form>
         );
+      case "signup":
+        return (
+          <form onSubmit={handleSignup}>
+            <input
+              type="email"
+              className="form-input"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              className="form-input"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              minLength="6"
+              required
+            />
+            <button type="submit" className="form-submit">
+              Sign Up
+            </button>
+          </form>
+        );
       default:
         return null;
     }
   };
-
+  const [log, setLog] = useState(false);
   return (
     <Modal show={modalIsOpen} onHide={closeModal}>
       <Modal.Header closeButton>
@@ -137,20 +137,26 @@ const SignupLoginModal = ({ modalIsOpen, closeModal }) => {
         <div className="d-flex justify-content-center gap-2">
           <button
             type="button"
-            className="btn btn-primary"
-            onClick={() => switchForm("signup")}
+            className={`btn ${log ? "btn-secondary" : "btn-primary"}`}
+            onClick={() => {
+              switchForm("signup");
+              setLog(false);
+            }}
           >
             Sign Up
           </button>
           <button
             type="button"
-            className="btn btn-secondary"
-            onClick={() => switchForm("login")}
+            className={`btn ${!log ? "btn-secondary" : "btn-primary"}`}
+            onClick={() => {
+              switchForm("login");
+              setLog(true);
+            }}
           >
             Log In
           </button>
         </div>
-        <div className="form-container">{renderForm()}</div>
+        <div className="form-container">{renderForm("login")}</div>
         <div>
           <p style={{ textAlign: "center", color: "red" }}>{errText}</p>
         </div>

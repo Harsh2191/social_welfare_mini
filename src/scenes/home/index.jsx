@@ -1,7 +1,8 @@
 import CarouselComponent from "../../components/CarouselComponent";
 import { Modal, Button, Form } from "react-bootstrap";
 import Logo from "../../images/septic-tank.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast, Toaster } from "sonner";
 import SignupLoginModal from "../../components/SignupLoginModal";
 import timeline from "../../images/timeline.png";
 const Home = () => {
@@ -15,6 +16,66 @@ const Home = () => {
     setModalIsOpen(false);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      toast.custom(
+        (t) => (
+          <div
+            style={{
+              fontFamily: "Source Sans Pro",
+              backgroundColor: "rgb(244,244,244)",
+              color: "black",
+              padding: "4px 10px",
+              border: "1px solid grey",
+              borderRadius: "7px",
+              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+            }}
+          >
+            <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Note</h2>
+            <p style={{ fontSize: "18px", margin: "0", fontWeight: "500" }}>
+              Please login with the following credentials to see the working
+              model of the project with previously recorded data:
+            </p>
+            <p style={{ fontWeight: "bold", fontSize: "18px", margin: "0" }}>
+              Email:abc@sample.com
+            </p>
+            <p style={{ fontWeight: "bold", fontSize: "18px", margin: "0" }}>
+              Password:12345678
+            </p>
+            <p
+              style={{
+                textAlign: "center",
+                fontSize: "20px",
+                margin: " 0 0 0 2px ",
+              }}
+            >
+              ----or----
+            </p>
+            <p style={{ fontSize: "18px", margin: "0", fontWeight: "500" }}>
+              Login with the google account <b>sih.ps1368@gmail.com</b> with the
+              password sent to <b>sih@aicte-india.org </b>
+              and <b>hackathon@aicte-india.org</b> by our mail and reply with{" "}
+              <b>"START"</b> to see the realtime implementation of our model.
+            </p>
+            <button
+              style={{
+                fontSize: "24px",
+                position: "absolute",
+                top: "8px",
+                right: "8px",
+                border: "none",
+                backgroundColor: "rgb(244,244,244)",
+              }}
+              onClick={() => toast.dismiss(t)}
+            >
+              ✕
+            </button>
+          </div>
+        ),
+        { duration: 100000 }
+      );
+    }, 3000);
+  }, []);
   return (
     <>
       <SignupLoginModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
@@ -36,7 +97,9 @@ const Home = () => {
           <ul className="header-link-items">
             <li>
               <Button variant="secondary" onClick={openModal}>
-                <div className="logg">Sign-up | Log-in</div>
+                <div className="logg" style={{ fontFamily: "Source Sans Pro" }}>
+                  Sign-up | Log-in
+                </div>
               </Button>
             </li>
           </ul>
@@ -235,6 +298,7 @@ const Home = () => {
           <h6>© 2023</h6>
         </footer>
       </section>
+      <Toaster position="bottom-right" />
     </>
   );
 };

@@ -2,13 +2,14 @@ import { Box, Button, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import { tokens } from "../../theme";
+import { useState } from "react";
 import GaugeChart from "react-gauge-chart";
 import toast, { Toaster } from "react-hot-toast";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 import Line_Chart from "../../components/Line_Chart";
 import HeartRateOxygenMonitor from "../../components/HeartRateOxygenMonitor";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import DataContext from "../../context/DataContext";
 import ProgressCircle from "../../components/ProgressCircle";
 import Pie_Chart from "../../components/Pie_Chart";
@@ -17,7 +18,7 @@ const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { gasData } = useContext(DataContext);
-
+  // console.log(gasData);
   // toast.success("Logged In successfully", { duration: 3000 });
   const normalizedAmmonia = gasData[gasData.length - 1].Ammonia / 800;
   const normalizedMethane = gasData[gasData.length - 1].Methane / 800;
@@ -45,6 +46,14 @@ const Dashboard = () => {
     rText = "High risk";
     toast.error("HIGH RISK!!", { duration: 2500 });
   }
+
+  const [greet, setisgreet] = useState(true);
+  useEffect(() => {
+    if (greet) {
+      toast.success("Logged in", { duration: 2000 });
+      setisgreet(false);
+    }
+  }, []);
 
   const useStyles = makeStyles((theme) => ({
     hiddenBox: {

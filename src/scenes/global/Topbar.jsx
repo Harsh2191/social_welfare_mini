@@ -25,8 +25,8 @@ const Topbar = () => {
   const signout = async () => {
     try {
       const user = auth.currentUser;
-      await user.delete();
-      setUser(null);
+      // await user.delete();
+      // setUser(null);
 
       // setTimeout(() => {
       //   navigate("/");

@@ -15,6 +15,7 @@ import {
 import { useContext } from "react";
 const Line_big = () => {
   const { gasData } = useContext(DataContext);
+  console.log(gasData);
   const LineData = gasData.slice(-Math.min(15, gasData.length));
   const risk =
     (gasData[gasData.length - 1].Ammonia / 800 +

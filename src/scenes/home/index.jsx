@@ -42,20 +42,12 @@ const Home = () => {
             <p style={{ fontWeight: "bold", fontSize: "18px", margin: "0" }}>
               Password:12345678
             </p>
-            <p
-              style={{
-                textAlign: "center",
-                fontSize: "20px",
-                margin: " 0 0 0 2px ",
-              }}
-            >
-              ----or----
-            </p>
+
             <p style={{ fontSize: "18px", margin: "0", fontWeight: "500" }}>
-              Login with the google account <b>sih.ps1368@gmail.com</b> with the
-              password sent to <b>sih@aicte-india.org </b>
-              and <b>hackathon@aicte-india.org</b> by our mail and reply with{" "}
-              <b>"START"</b> to see the realtime implementation of our model.
+              (As our project works on realtime data,it displays realtime values{" "}
+              <i>only </i>
+              when we start the hardware component.To check our website without
+              data (Static) You can signup with any mail-id.)
             </p>
             <button
               style={{

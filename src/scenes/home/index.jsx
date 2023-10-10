@@ -34,7 +34,7 @@ const Home = () => {
             <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Note</h2>
             <p style={{ fontSize: "18px", margin: "0", fontWeight: "500" }}>
               Please login with the following credentials to see the working
-              model of the project with previously recorded data:
+              model of our project with previously recorded data:
             </p>
             <p style={{ fontWeight: "bold", fontSize: "18px", margin: "0" }}>
               Email:abc@sample.com

@@ -13,7 +13,7 @@ const Pie_Chart = () => {
     { name: "Methane", value: gasData[gasData.length - 1].Methane },
   ];
   const COLORS = ["#F47560", "#E8C1A0"];
-  console.count("pie");
+  // console.count("pie");
   return (
     <PieChart width={200} height={200}>
       <Pie

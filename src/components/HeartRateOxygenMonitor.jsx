@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
 const HeartRateOxygenMonitor = () => {
   const classes = useStyles();
   const { userData } = useContext(DataContext);
-  console.count("hh");
+  // console.count("hh");
   // useEffect(() => {
   const newHeartRate = Math.floor(Math.random() * 10) + 110;
   const newOxygenLevel = Math.floor(Math.random() * 2) + 98;
-  console.log(newHeartRate, newOxygenLevel);
-  console.log(userData);
+  // console.log(newHeartRate, newOxygenLevel);
+  // console.log(userData);
   // setHeartRate(newHeartRate);
   // setOxygenLevel(newOxygenLevel);
 
